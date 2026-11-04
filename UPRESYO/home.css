@@ -1,0 +1,333 @@
+:root {
+  --green: #00573f;
+  --green-dark: #003826;
+  --cream: #f5f1e6;
+  --gold: #f2c04a;
+  --maroon: #5a2620;
+  --white: #ffffff;
+  --ink: #1f2a24;
+
+  --font-heading: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
+  --font-body: "DM Sans", "Segoe UI", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+}
+
+/* ---------- Frame ---------- */
+.frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;   /* fallback */
+  height: 100dvh;  /* fills the whole browser window */
+  min-height: 520px;
+  background:
+    radial-gradient(ellipse at 50% 55%, #fbf9f2 0%, var(--cream) 55%, #ebe3cf 100%);
+  overflow: hidden;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--green);
+  flex: none;
+  padding: 14px 28px;
+  border-radius: 0 0 16px 16px;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--white);
+  font-size: 0.92rem;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.nav-links a.active {
+  font-weight: 700;
+  border-bottom-color: var(--gold);
+}
+
+.nav-links a:hover {
+  border-bottom-color: var(--gold);
+}
+
+.nav-links a:focus-visible,
+.logo:focus-visible,
+.blob:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.nav-links .btn-about {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--green-dark);
+  padding: 8px 22px;
+  border-radius: 999px;
+  border-bottom: 0;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+
+.nav-links .btn-about:hover {
+  background: #ffd873;
+}
+
+/* ---------- Stage (everything is positioned in % so it scales) ---------- */
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  container-type: size;
+  /* One shared size unit so text and shapes scale together
+     with whichever is tighter: the window's width or height. */
+  --u: min(1cqw, 1.57cqh);
+}
+
+.stage > * {
+  position: absolute;
+}
+
+/* Orbit rings */
+.orbit {
+  border-radius: 50%;
+  border: 1.5px solid;
+}
+
+.orbit-outer {
+  left: 9%;
+  top: 13%;
+  width: 82%;
+  height: 79%;
+  border-color: var(--gold);
+  box-shadow: 0 0 26px rgba(242, 192, 74, 0.3), inset 0 0 26px rgba(242, 192, 74, 0.15);
+}
+
+.orbit-inner {
+  left: 19.8%;
+  top: 22%;
+  width: 60.4%;
+  height: 59%;
+  border-color: var(--green);
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.35) 70%);
+}
+
+/* ---------- Center hero ---------- */
+.hero {
+  left: 50%;
+  top: 51.5%;
+  width: calc(44 * var(--u));
+  translate: -50% -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: calc(1.8 * var(--u));
+  animation: hero-in 0.8s ease-out both;
+}
+
+@keyframes hero-in {
+  from { opacity: 0; scale: 0.94; }
+  to   { opacity: 1; scale: 1; }
+}
+
+.hero-logo {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+
+/* Orbiting image links */
+.blob {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    text-align: center;
+    text-decoration: none;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    color: var(--ink);
+    cursor: pointer;
+
+    transition: transform 0.25s ease;
+}
+
+/* Circular images */
+/* Completely remove orbiting boxes */
+.blob {
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none;
+}
+
+/* Remove image background and border */
+.blob-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+}
+
+/* Remove box and shadow on hover */
+.blob:hover,
+.blob:focus-visible {
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.hero-logo,
+.center-placeholder img {
+  width: max(56px, calc(13 * var(--u)));
+  height: auto;
+  object-fit: contain;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1rem, calc(3.3 * var(--u)), 3.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--green);
+}
+
+.hero p {
+  max-width: 90%;
+  font-size: clamp(0.7rem, calc(1.75 * var(--u)), 1.5rem);
+  line-height: 1.4;
+  color: #4a5a52;
+}
+
+/* ---------- Orbiting blobs (positions are set by script.js) ---------- */
+.blob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6%;
+  text-align: center;
+  text-decoration: none;
+  padding: 0 4px;
+  border-radius: 24%;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(0.6rem, calc(1.9 * var(--u)), 1.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: scale 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.blob svg {
+  width: 34%;
+  height: auto;
+}
+
+.blob:hover,
+.blob:focus-visible {
+  scale: 1.12;
+  z-index: 2;
+  filter: brightness(0.96) saturate(1.1);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+}
+
+.tint-gold  { background: #f7e1a0; }
+.tint-green { background: #cde4d8; }
+.tint-rose  { background: #ecd0cb; }
+.tint-slate { background: #d3dce6; }
+
+.blob-top          { left: 40.3%; top: 3.7%;  width: calc(15 * var(--u));   height: calc(11.8 * var(--u)); }
+.blob-right        { left: 77.8%; top: 18.9%; width: calc(15 * var(--u));   height: calc(11.4 * var(--u)); }
+.blob-left         { left: 7.3%;  top: 26%;   width: calc(15 * var(--u));   height: calc(11.4 * var(--u)); }
+.blob-bottom-left  { left: 13.4%; top: 77%;   width: calc(17.7 * var(--u)); height: calc(12.3 * var(--u)); }
+.blob-bottom-right { left: 72.2%; top: 77%;   width: calc(17.6 * var(--u)); height: calc(12.3 * var(--u)); }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 600px) {
+  .navbar {
+    justify-content: center;
+    padding: 12px 16px;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+}
+
+/* Tall, narrow windows (phones): give the center more room */
+@media (max-aspect-ratio: 1/1) {
+  .hero {
+    width: 58%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero p {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    animation: none;
+  }
+}

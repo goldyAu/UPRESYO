@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transport fares | UPRESYO</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="toda.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- Navigation -->
+        <header class="navbar">
+            <a href="index.html" class="logo">UPRESYO</a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="eatery.html">Canteens</a></li>
+                    <li><a href="transport.html" class="active" aria-current="page">Transport</a></li>
+                    <li><a href="about.html" class="btn-about">About us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Transport Section -->
+        <main class="transport">
+
+            <!-- Left Cloud Image -->
+            <!-- Scattered clouds on the left -->
+<img src="toda.png" class="side-cloud cloud-left-1" alt="Cloud">
+<img src="toda.png" class="side-cloud cloud-left-2" alt="Cloud">
+<img src="toda.png" class="side-cloud cloud-left-3" alt="Cloud">
+<img src="toda.png" class="side-cloud cloud-left-4" alt="Cloud">
+
+            <!-- Calculator Box -->
+            <div class="transport-card">
+
+                <h1 class="fare-title" id="fareTitle">Tricycle fares</h1>
+
+                <form class="calc" id="fareForm" onsubmit="return false">
+
+                    <div class="route">
+                        <label class="field">
+                            <span>From</span>
+                            <select id="fromSelect"></select>
+                        </label>
+
+                        <label class="field">
+                            <span>To</span>
+                            <select id="toSelect"></select>
+                        </label>
+                    </div>
+
+                    <fieldset class="riders">
+                        <legend>Number of riders</legend>
+
+                        <div class="rider-options">
+                            <button type="button" data-riders="1" aria-pressed="true">1</button>
+                            <button type="button" data-riders="2" aria-pressed="false">2</button>
+                            <button type="button" data-riders="more" aria-pressed="false">More</button>
+                        </div>
+
+                        <input type="number" id="moreCount"
+                            class="more-count" min="3" max="50"
+                            value="3" aria-label="How many riders?" hidden>
+                    </fieldset>
+
+                    <div class="fare-box">
+                        <span class="peso" aria-hidden="true">&#8369;</span>
+                        <output id="fareOutput" for="fromSelect toSelect"
+                            aria-live="polite" aria-label="Total fare">&mdash;</output>
+                    </div>
+
+                    <button type="button" class="btn-browse" id="browseBtn">
+                        Browse fares
+                    </button>
+
+                    <div class="result" id="result" aria-live="polite">
+                        <p class="hint">Fares will show here.</p>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Scattered clouds on the right -->
+<img src="toda.png" class="side-cloud cloud-right-1" alt="Cloud">
+<img src="toda.png" class="side-cloud cloud-right-2" alt="Cloud">
+<img src="toda.png" class="side-cloud cloud-right-3" alt="Cloud">
+<img src="toda.png" class="side-cloud cloud-right-4" alt="Cloud">
+
+        </main>
+    </div>
+
+    <script src="toda.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample Eatery | UPRESYO</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="castillo.css">
+</head>
+
+<body>
+<div class="page">
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+        <a href="home.html" class="logo">UPRESYO</a>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#" class="active">Canteens</a></li>
+                <li><a href="#">Transport</a></li>
+                <li><a href="about.html" class="btn-about">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN TWO-COLUMN LAYOUT -->
+    <main class="eatery-layout">
+
+        <!-- LEFT SIDE: EATERY CONTENT -->
+        <section class="eatery">
+
+            <!-- TITLE AND LOCATION -->
+            <h1>Sample Eatery</h1>
+
+            <p class="location">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 22s-7-6.2-7-12a7 7 0 1 1 14 0c0 5.8-7 12-7 12zm0-9.2a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6z"/>
+                </svg>
+                Place holder
+            </p>
+
+            <!-- MAP PLACEHOLDER -->
+            <div class="map" role="img" aria-label="Map placeholder">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.4"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+
+                    <path d="M12 12.5s-3.2-2.7-3.2-5.3a3.2 3.2 0 1 1 6.4 0c0 2.6-3.2 5.3-3.2 5.3z"/>
+                    <circle cx="12" cy="7.2" r="1.1"/>
+                    <path d="M8.5 11.5L4 13.5v7l5-2 6 2 5-2v-7l-4.5 2"/>
+                </svg>
+
+                <span class="map-line"></span>
+            </div>
+
+            <!-- SEARCH -->
+            <form class="search" role="search" onsubmit="return false">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" aria-hidden="true">
+
+                    <circle cx="11" cy="11" r="6.5"/>
+                    <path d="M16 16l4.5 4.5"/>
+                </svg>
+
+                <input type="search"
+                       placeholder="Search food or drinks"
+                       aria-label="Search the menu">
+            </form>
+
+            <!-- FILTERS AND SORT -->
+            <div class="toolbar">
+
+                <div class="chips">
+                    <button type="button" class="chip chip-all"
+                            data-filter="all" aria-pressed="true">All</button>
+
+                    <button type="button" class="chip"
+                            data-filter="meal" aria-pressed="false">Meal</button>
+
+                    <button type="button" class="chip"
+                            data-filter="drink" aria-pressed="false">Drinks</button>
+
+                    <button type="button" class="chip"
+                            data-filter="snack" aria-pressed="false">Snacks</button>
+                </div>
+
+                <div class="sort-wrap">
+
+                    <button type="button" class="sort" id="sortBtn"
+                            aria-haspopup="true" aria-expanded="false"
+                            aria-controls="sortMenu">
+
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
+
+                            <path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/>
+                        </svg>
+
+                        Sort
+                    </button>
+
+                    <ul class="sort-menu" id="sortMenu" hidden>
+                        <li><button type="button" data-sort="default" class="is-active">Default order</button></li>
+                        <li><button type="button" data-sort="name-asc">Name: A to Z</button></li>
+                        <li><button type="button" data-sort="name-desc">Name: Z to A</button></li>
+                        <li><button type="button" data-sort="price-asc">Price: low to high</button></li>
+                        <li><button type="button" data-sort="price-desc">Price: high to low</button></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- RESULTS -->
+            <p class="results" id="results" aria-live="polite"></p>
+
+            <!-- MENU ITEMS -->
+            <ul class="menu">
+
+                <li class="item" data-category="meal" data-price="60">
+
+                    <div class="thumb">
+                        <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=300"
+                             alt="Fried chicken with rice">
+                    </div>
+
+                    <div class="info">
+                        <h2>Fried Chicken with rice</h2>
+                        <span class="category">Meal</span>
+                    </div>
+
+                    <span class="price">Php 60</span>
+                </li>
+
+                <li class="item" data-category="drink" data-price="15">
+
+                    <div class="thumb">
+                        <img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?w=300"
+                             alt="Coca-Cola drink">
+                    </div>
+
+                    <div class="info">
+                        <h2>Coke 8oz</h2>
+                        <span class="category">Drink</span>
+                    </div>
+
+                    <span class="price">Php 15</span>
+                </li>
+
+                <li class="item" data-category="snack" data-price="10">
+
+                    <div class="thumb">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300"
+                             alt="Ube Turon">
+                    </div>
+
+                    <div class="info">
+                        <h2>Ube Turon</h2>
+                        <span class="category">Snack</span>
+                    </div>
+
+                    <span class="price">Php 10</span>
+                </li>
+
+            </ul>
+
+            <p class="empty" id="emptyMsg" hidden>
+                No items found. Try a different search or category.
+            </p>
+
+        </section>
+
+        <!-- RIGHT SIDE: LARGE IMAGE PLACEHOLDER -->
+        <aside class="right-image">
+
+            <div class="image-frame">
+
+                <img src="caslogo.png" alt="Eatery image">
+
+
+            </div>
+
+        </aside>
+
+    </main>
+
+</div>
+
+<script src="castillo.js" defer></script>
+
+</body>
+</html>

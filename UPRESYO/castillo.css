@@ -1,0 +1,722 @@
+/* Eatery page. Loaded after style.css, which supplies the colors, fonts and navbar. */
+
+:root {
+  --sage: #d7ddd2;
+  --pink: #f6e3e3;
+  --line: #2b2b24;
+}
+
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--sage);
+}
+
+/* ---------- CAS LOGO POSITION AND SIZE ---------- */
+
+/* ---------- LARGE RIGHT IMAGE PLACEHOLDER ---------- */
+
+/* FORCE TWO-COLUMN LAYOUT */
+
+.eatery-layout {
+    display: grid !important;
+
+    grid-template-columns: 590px minmax(0, 1fr) !important;
+    grid-template-rows: 1fr;
+
+    align-items: center;
+    gap: 40px;
+
+    width: 100%;
+    max-width: 1600px;
+    min-height: calc(100vh - 70px);
+
+    margin: 0 auto;
+    padding: 40px 5%;
+    box-sizing: border-box;
+}
+
+/* LEFT CONTENT */
+
+.eatery-layout > .eatery {
+    grid-column: 1;
+    grid-row: 1;
+
+    width: 100% !important;
+    max-width: 590px !important;
+    min-width: 0;
+    margin: 0;
+}
+
+/* RIGHT IMAGE FRAME */
+
+/* RIGHT IMAGE FRAME */
+
+.eatery-layout > .eatery-image {
+    grid-column: 2;
+    grid-row: 1;
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 530px;
+
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* IMAGE PLACEHOLDER */
+
+.eatery-image .image-placeholder {
+    width: 85%;
+    height: 75%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+
+    background: rgba(215, 221, 210, 0.35);
+}
+
+.eatery-image .image-placeholder svg {
+    width: 200px;
+    height: 150px;
+    color: var(--ink);
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+    .eatery-layout {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 30px;
+    }
+
+    .eatery-layout > .eatery {
+        grid-column: 1;
+        grid-row: 1;
+        max-width: 100% !important;
+    }
+
+    .eatery-layout > .eatery-image {
+        grid-column: 1;
+        grid-row: 2;
+        height: 350px;
+        min-height: 300px;
+    }
+}
+
+
+/* ---------- Title and location ---------- */
+.eatery h1 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+.location svg {
+  width: 1.2em;
+  height: 1.2em;
+  flex: none;
+}
+
+/* ---------- Map placeholder ---------- */
+.map {
+  margin-top: 16px;
+  aspect-ratio: 4 / 1;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--pink);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink);
+}
+.cas-logo {
+    position: absolute;
+    top: 150px;
+    right: 8%;
+    width: 120px;
+    height: auto;
+    z-index: 2;
+}
+
+.cas-logo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+.map svg {
+  width: clamp(32px, 5vw, 48px);
+  height: auto;
+}
+
+.map-line {
+  width: clamp(80px, 15%, 140px);
+  border-top: 1px solid #6b6b60;
+}
+
+/* ---------- Search ---------- */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 0 18px;
+  height: 40px;
+  background: var(--gold);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+}
+
+.search:focus-within {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+.search svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.search input::placeholder {
+  color: rgba(31, 42, 36, 0.6);
+}
+
+/* ---------- Filters and sort ---------- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip,
+.sort {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, translate 0.15s ease;
+}
+
+.chip {
+  padding: 5px 16px;
+  background: var(--green);
+  color: var(--white);
+  border: 1px solid var(--line);
+}
+
+.chip[aria-pressed="true"] {
+  background: #f8d880;
+  color: var(--ink);
+}
+
+.chip:hover {
+  background: #0b7a58;
+}
+
+.chip[aria-pressed="true"]:hover {
+  background: #fbe3a2;
+}
+
+.sort {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 110px;
+  padding: 6px 18px;
+  background: var(--green);
+  color: var(--white);
+  border: 1px solid var(--line);
+}
+
+.sort svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sort:hover {
+  background: #0b7a58;
+}
+
+.chip:focus-visible,
+.sort:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- Menu list ---------- */
+.menu {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px 10px 14px;
+  background: var(--gold);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: translate 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item:hover {
+  translate: 0 -2px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Photo placeholder: a green box with an X. Put an <img> inside to replace it. */
+.thumb {
+  flex: none;
+  width: 56px;
+  height: 44px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.8px), var(--line) 50%, transparent calc(50% + 0.8px)),
+    linear-gradient(to bottom right, transparent calc(50% - 0.8px), var(--line) 50%, transparent calc(50% + 0.8px)),
+    var(--green);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.info h2 {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.category {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.price {
+  flex: none;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: var(--ink);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 480px) {
+  .item {
+    gap: 12px;
+    padding: 10px 14px 10px 10px;
+  }
+
+  .sort {
+    min-width: 0;
+  }
+}
+
+/* ---------- Interactive parts (filter, search, sort) ---------- */
+.item[hidden] {
+  display: none;
+}
+
+.results {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #3c4a42;
+}
+
+.empty {
+  margin-top: 26px;
+  padding: 24px;
+  text-align: center;
+  font-weight: 500;
+  color: #3c4a42;
+  border: 1px dashed #8c978f;
+  border-radius: 16px;
+}
+
+.sort-wrap {
+  position: relative;
+}
+
+.sort-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 10;
+  min-width: 190px;
+  list-style: none;
+  padding: 6px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.sort-menu[hidden] {
+  display: none;
+}
+
+.sort-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sort-menu button:hover {
+  background: #f1efe4;
+}
+
+.sort-menu button.is-active {
+  font-weight: 700;
+  background: #fbe9b5;
+}
+
+.sort-menu button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: -2px;
+}
+
+/* =========================================================
+   Lively effects: hovers, entrance animations, floating glow
+   ========================================================= */
+
+/* ---------- Drifting glow circles in the background ---------- */
+.page::before,
+.page::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.page::before {
+  top: -140px;
+  right: -120px;
+  width: 460px;
+  height: 460px;
+  background: radial-gradient(circle, rgba(242, 192, 74, 0.5), transparent 70%);
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+.page::after {
+  bottom: -160px;
+  left: -140px;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(0, 87, 63, 0.2), transparent 70%);
+  animation: drift 18s ease-in-out infinite alternate-reverse;
+}
+
+.page > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes drift {
+  from { translate: 0 0; scale: 1; }
+  to   { translate: -50px 40px; scale: 1.15; }
+}
+
+/* ---------- Entrance animation (page load, and when items re-appear) ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.eatery h1,
+.location,
+.map,
+.search,
+.toolbar,
+.results,
+.item,
+.empty {
+  animation: rise 0.55s ease-out backwards;
+}
+
+.location { animation-delay: 0.08s; }
+.map      { animation-delay: 0.16s; }
+.search   { animation-delay: 0.24s; }
+.toolbar  { animation-delay: 0.32s; }
+.results  { animation-delay: 0.38s; }
+
+.item { animation-delay: calc(var(--i, 8) * 60ms); }
+.item:nth-child(1) { --i: 1; }
+.item:nth-child(2) { --i: 2; }
+.item:nth-child(3) { --i: 3; }
+.item:nth-child(4) { --i: 4; }
+.item:nth-child(5) { --i: 5; }
+.item:nth-child(6) { --i: 6; }
+.item:nth-child(7) { --i: 7; }
+
+/* ---------- Title and location ---------- */
+.location svg {
+  transform-origin: 50% 100%;
+  transition: rotate 0.3s ease;
+}
+
+.location:hover svg {
+  animation: wiggle 0.6s ease;
+}
+
+@keyframes wiggle {
+  0%, 100% { rotate: 0deg; }
+  25%      { rotate: -14deg; }
+  60%      { rotate: 12deg; }
+}
+
+/* ---------- Map: bobbing pin ---------- */
+.map {
+  transition: translate 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.map:hover {
+  translate: 0 -3px;
+  background: #fbeded;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.map svg {
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+.map-line {
+  animation: shadow-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -6px; }
+}
+
+@keyframes shadow-pulse {
+  0%, 100% { scale: 1; opacity: 1; }
+  50%      { scale: 0.7; opacity: 0.5; }
+}
+
+/* ---------- Search ---------- */
+.search {
+  transition: box-shadow 0.25s ease, scale 0.25s ease, background-color 0.25s ease;
+}
+
+.search:hover {
+  background: #f6c75a;
+}
+
+.search:focus-within {
+  scale: 1.015;
+  box-shadow: 0 0 0 5px rgba(0, 87, 63, 0.2), 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.search svg {
+  transition: rotate 0.3s ease;
+}
+
+.search:focus-within svg {
+  rotate: -12deg;
+}
+
+/* ---------- Chips and Sort ---------- */
+.chip,
+.sort {
+  transition: background-color 0.2s ease, color 0.2s ease, translate 0.2s ease,
+              scale 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chip:hover,
+.sort:hover {
+  translate: 0 -2px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.chip:active,
+.sort:active {
+  scale: 0.93;
+  translate: 0 0;
+}
+
+.chip[aria-pressed="true"] {
+  animation: chip-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes chip-pop {
+  from { scale: 0.85; }
+  to   { scale: 1; }
+}
+
+.sort svg {
+  transition: rotate 0.4s ease;
+}
+
+.sort:hover svg,
+.sort[aria-expanded="true"] svg {
+  rotate: 180deg;
+}
+
+.sort-menu {
+  transform-origin: top right;
+  animation: menu-in 0.18s ease-out;
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+.sort-menu button {
+  transition: background-color 0.15s ease, translate 0.15s ease;
+}
+
+.sort-menu button:hover {
+  translate: 3px 0;
+}
+
+/* ---------- Menu cards ---------- */
+.item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: translate 0.25s ease, box-shadow 0.25s ease, scale 0.2s ease, background-color 0.25s ease;
+}
+
+.item:hover {
+  translate: 0 -4px;
+  background: #f5c553;
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
+}
+
+.item:active {
+  scale: 0.99;
+}
+
+/* a soft shine that sweeps across the card on hover */
+.item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%);
+  translate: -120% 0;
+  transition: translate 0.7s ease;
+  pointer-events: none;
+}
+
+.item:hover::after {
+  translate: 120% 0;
+}
+
+.thumb {
+  transition: rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), scale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.item:hover .thumb {
+  rotate: -6deg;
+  scale: 1.12;
+}
+
+/* name gets an underline that slides in */
+.info h2 {
+  width: fit-content;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+  transition: background-size 0.3s ease, color 0.25s ease;
+}
+
+.item:hover .info h2 {
+  background-size: 100% 2px;
+  color: var(--green-dark);
+}
+
+.price {
+  transition: scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
+}
+
+.item:hover .price {
+  scale: 1.18;
+  color: var(--green-dark);
+}
+
+/* ---------- Respect people who turn animations off ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
