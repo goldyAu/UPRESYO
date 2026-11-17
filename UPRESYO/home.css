@@ -6,6 +6,9 @@
   --maroon: #5a2620;
   --white: #ffffff;
   --ink: #1f2a24;
+  --maroon-hover: #800000;
+  --maroon-hover-deep: #5c0000;
+  --profile-bg: #892024;
 
   --font-heading: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
   --font-body: "DM Sans", "Segoe UI", Arial, sans-serif;
@@ -106,7 +109,8 @@ body {
 }
 
 .nav-links .btn-about:hover {
-  background: #ffd873;
+  background: var(--maroon-hover);
+  color: var(--white);
 }
 
 /* ---------- Stage (everything is positioned in % so it scales) ---------- */

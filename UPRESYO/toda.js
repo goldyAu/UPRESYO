@@ -40,6 +40,8 @@
   const fareOutput = document.getElementById('fareOutput');
   const browseBtn = document.getElementById('browseBtn');
   const result = document.getElementById('result');
+  const fareNote = document.getElementById('fareNote');
+  const swapBtn = document.getElementById('swapBtn');
 
   const peso = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' });
   const state = { mode: 'tricycle', riders: '1' };
@@ -80,6 +82,18 @@
     const to = toSelect.value;
     const perRider = from && to && from !== to ? fareFor(from, to) : undefined;
     fareOutput.textContent = perRider === undefined ? '\u2014' : peso.format(perRider * riderCount()).replace('\u20B1', '');
+
+    // Small line under the meter
+    const riders = riderCount();
+    if (!from || !to) {
+      fareNote.textContent = 'Pick where you\u2019re going';
+    } else if (from === to) {
+      fareNote.textContent = 'From and To are the same place';
+    } else if (perRider === undefined) {
+      fareNote.textContent = 'No ' + MODE_LABELS[state.mode] + ' fare listed for this route yet';
+    } else {
+      fareNote.textContent = peso.format(perRider) + ' each \u00D7 ' + riders + (riders === 1 ? ' rider' : ' riders');
+    }
   }
 
   function setMode(mode) {
@@ -171,7 +185,15 @@
 
   browseBtn.addEventListener('click', browse);
 
-  // Open the right tab from the link (transport.html#ikot or transport.html#tricycle)
+  // Swap From and To
+  swapBtn.addEventListener('click', () => {
+    const from = fromSelect.value;
+    fromSelect.value = toSelect.value;
+    toSelect.value = from;
+    updateFare();
+  });
+
+  // Open the right tab from the link (toda.html#ikot or toda.html#tricycle)
   const hash = location.hash.replace('#', '');
   setMode(MODE_LABELS[hash] ? hash : 'tricycle');
 })();
