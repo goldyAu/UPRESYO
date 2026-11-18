@@ -7,13 +7,13 @@
   const items = Array.from(menu.querySelectorAll('.item'));
   const chips = Array.from(document.querySelectorAll('.chip'));
   const searchInput = document.querySelector('.search input');
-  const results = document.getElementById('results');
-  const emptyMsg = document.getElementById('emptyMsg');
+  const results = document.getElementById('resultCount') || document.getElementById('results');
+  const emptyMsg = document.getElementById('emptyState') || document.getElementById('emptyMsg');
   const sortBtn = document.getElementById('sortBtn');
   const sortMenu = document.getElementById('sortMenu');
   const sortOptions = Array.from(sortMenu.querySelectorAll('button'));
 
-  const FILTER_LABELS = { all: 'All', meal: 'Meal', drink: 'Drinks', snack: 'Snacks' };
+  const FILTER_LABELS = { all: 'All', meal: 'Meal', drinks: 'Drinks', drink: 'Drinks', snacks: 'Snacks', snack: 'Snacks' };
   const SORT_LABELS = {
     'default': 'Default order',
     'name-asc': 'Name: A to Z',
@@ -45,7 +45,7 @@
         const pa = getPrice(a);
         const pb = getPrice(b);
         if (pa === null && pb === null) return collator.compare(getName(a), getName(b));
-        if (pa === null) return 1;   // items without a price always go last
+        if (pa === null) return 1;
         if (pb === null) return -1;
         const diff = state.sort === 'price-asc' ? pa - pb : pb - pa;
         return diff || collator.compare(getName(a), getName(b));
@@ -57,45 +57,62 @@
 
   function update() {
     // 1. Sort (re-orders the list in the page)
-    // (only touch the page if the order actually changed, so animations don't replay)
     const sorted = [...items].sort(compare);
     const inOrder = sorted.every((item, i) => menu.children[i] === item);
     if (!inOrder) sorted.forEach((item) => menu.appendChild(item));
 
     // 2. Filter + search (hide anything that doesn't match)
     const q = state.query.trim().toLowerCase();
+    const activeFilter = state.filter.trim().toLowerCase();
     let shown = 0;
+
     items.forEach((item) => {
-      const inCategory = state.filter === 'all' || item.dataset.category === state.filter;
-      const searchable = (getName(item) + ' ' + item.querySelector('.category').textContent).toLowerCase();
+      const itemCat = (item.dataset.category || '').trim().toLowerCase();
+      const catEl = item.querySelector('.item-cat') || item.querySelector('.category');
+      const catText = catEl ? catEl.textContent.trim().toLowerCase() : '';
+
+      const inCategory = activeFilter === 'all' || itemCat === activeFilter || catText === activeFilter;
+      const searchable = (getName(item) + ' ' + catText).toLowerCase();
       const matches = inCategory && (!q || searchable.includes(q));
+
       item.hidden = !matches;
+      item.style.display = matches ? '' : 'none';
       if (matches) shown++;
     });
 
     // 3. Tell the user what they are looking at
     let text = 'Showing ' + shown + (shown === 1 ? ' item' : ' items');
-    if (state.filter !== 'all') text += ' in ' + FILTER_LABELS[state.filter];
+    if (activeFilter !== 'all' && FILTER_LABELS[activeFilter]) {
+      text += ' in ' + FILTER_LABELS[activeFilter];
+    }
     if (q) text += ' matching \u201C' + state.query.trim() + '\u201D';
     if (state.sort !== 'default') text += ' \u00B7 ' + SORT_LABELS[state.sort];
-    results.textContent = text;
-    emptyMsg.hidden = shown !== 0;
+
+    if (results) results.textContent = text;
+    if (emptyMsg) emptyMsg.hidden = shown !== 0;
   }
 
-  // Filter chips
+  // Filter chips (All, Meal, Drinks, Snacks)
   chips.forEach((chip) => {
     chip.addEventListener('click', () => {
-      state.filter = chip.dataset.filter;
-      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      chips.forEach((c) => {
+        c.classList.remove('active');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      chip.classList.add('active');
+      chip.setAttribute('aria-pressed', 'true');
+      state.filter = chip.dataset.filter || chip.textContent.trim();
       update();
     });
   });
 
   // Search
-  searchInput.addEventListener('input', () => {
-    state.query = searchInput.value;
-    update();
-  });
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      state.query = searchInput.value;
+      update();
+    });
+  }
 
   // Sort menu
   function setMenu(open) {
@@ -103,27 +120,32 @@
     sortBtn.setAttribute('aria-expanded', String(open));
   }
 
-  sortBtn.addEventListener('click', () => setMenu(sortMenu.hidden));
+  if (sortBtn && sortMenu) {
+    sortBtn.addEventListener('click', () => setMenu(sortMenu.hidden));
 
-  sortOptions.forEach((option) => {
-    option.addEventListener('click', () => {
-      state.sort = option.dataset.sort;
-      sortOptions.forEach((o) => o.classList.toggle('is-active', o === option));
-      setMenu(false);
-      update();
+    sortOptions.forEach((option) => {
+      option.addEventListener('click', () => {
+        state.sort = option.dataset.sort;
+        sortOptions.forEach((o) => {
+          o.classList.toggle('active', o === option);
+          o.classList.toggle('is-active', o === option);
+        });
+        setMenu(false);
+        update();
+      });
     });
-  });
 
-  document.addEventListener('click', (e) => {
-    if (!sortMenu.hidden && !e.target.closest('.sort-wrap')) setMenu(false);
-  });
+    document.addEventListener('click', (e) => {
+      if (!sortMenu.hidden && !e.target.closest('.sort-wrap')) setMenu(false);
+    });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !sortMenu.hidden) {
-      setMenu(false);
-      sortBtn.focus();
-    }
-  });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !sortMenu.hidden) {
+        setMenu(false);
+        sortBtn.focus();
+      }
+    });
+  }
 
   update();
 })();

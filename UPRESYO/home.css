@@ -19,12 +19,22 @@
 
 html,
 body {
-  height: 100%;
+  font-family: var(--font-body);
+  background: var(--cream)
 }
 
 body {
-  font-family: var(--font-body);
-  background: var(--cream)
+  margin: 0;
+  min-height: 100vh;
+  /* Replace 'pixel-bg.png' with your exact background filename */
+  background-image: 
+  linear-gradient(rgba(245, 248, 246, 0.35), rgba(245, 248, 246, 0.35)),
+  url("back3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  image-rendering: pixelated;
 }
 
 /* ---------- Frame ---------- */
@@ -36,7 +46,7 @@ body {
   height: 100dvh;  /* fills the whole browser window */
   min-height: 520px;
      background:
-     url("homepagebg.png") center / cover no-repeat,
+     url("back3.jpg") center / cover no-repeat,
      var(--cream);
 }
 
@@ -491,3 +501,30 @@ body {
     0%, 100% { scale: 1; }
     50% { scale: 1.05; }
   }
+
+/* =========================================================
+   KEEP ORIGINAL OBLONG & PULL TEXT INSIDE (Paste at bottom of home.css)
+   ========================================================= */
+.hero {
+  gap: 4px !important;
+  padding-bottom: 24px !important;
+}
+
+.hero-logo {
+  width: min(290px, 42vw) !important;
+  margin-bottom: -6px !important;
+}
+
+.hero h1 {
+  margin: 0 !important;
+  font-size: clamp(1.1rem, 2vw, 1.45rem) !important;
+  line-height: 1.15 !important;
+}
+
+.hero p {
+  margin: 2px auto 0 !important;
+  font-size: clamp(0.8rem, 1.3vw, 0.95rem) !important;
+  color: #1a2b22 !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+}
