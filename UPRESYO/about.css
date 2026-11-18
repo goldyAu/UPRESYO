@@ -16,7 +16,7 @@
 }
 
 .nav-links .btn-about:hover {
-  background: #9a1414;
+  background: var(--maroon-hover-deep);
 }
 
 /* ---------- Layout ---------- */
@@ -74,6 +74,23 @@
 .card:hover .picture {
   translate: 0 -4px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+/* Profile photos: round frame */
+.card .picture {
+  width: 75%;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  background: var(--profile-bg);
+}
+
+.card .picture img {
+  object-position: center 35%;
+}
+
+.card figcaption {
+  text-align: center;
 }
 
 figcaption {
