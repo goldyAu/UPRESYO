@@ -269,14 +269,12 @@ body {
   transition: transform 0.14s ease, background-color 0.14s ease, color 0.14s ease;
 }
 
-<<<<<<< HEAD
 .chip:hover {
   transform: translateY(-2px);
   background: var(--green-dark);
 }
 
 .chip.active {
-=======
    .chip:hover {
      background: var(--maroon-hover);
    }
@@ -326,7 +324,6 @@ body {
   align-items: center;
   gap: 16px;
   padding: 10px 20px 10px 14px;
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84
   background: var(--gold);
   color: var(--ink);
   box-shadow: 2px 2px 0px var(--green);
@@ -397,14 +394,11 @@ body {
 }
 
 .sort-menu button:hover {
-<<<<<<< HEAD
   background: var(--green-soft);
 }
-=======
   background: var(--maroon-hover);
   color: var(--white);
    }
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84
 
 .sort-menu button.active {
   background: var(--gold);
@@ -428,8 +422,6 @@ body {
   gap: 14px;
 }
 
-<<<<<<< HEAD
-=======
 .page::before {
   top: -140px;
   right: -120px;
@@ -618,7 +610,6 @@ body {
 }
 
 /* ---------- Menu cards ---------- */
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84
 .item {
   display: flex;
   align-items: center;
@@ -632,11 +623,9 @@ body {
 }
 
 .item:hover {
-<<<<<<< HEAD
   background: var(--gold-light);
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0px var(--green);
-=======
   translate: 0 -4px;
   background: var(--maroon-hover);
   box-shadow: 0 12px 22px rgba(0, 0, 0, 0.2);
@@ -659,7 +648,6 @@ body {
 
 .item:hover::after {
   translate: 120% 0;
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84
 }
 
 .thumb {
@@ -686,7 +674,6 @@ body {
   color: var(--ink);
 }
 
-<<<<<<< HEAD
 .item-cat {
   display: inline-block;
   font-size: 0.78rem;
@@ -696,11 +683,9 @@ body {
   padding: 2px 10px;
   border-radius: 999px;
   border: 1.5px solid var(--green);
-=======
 .item:hover .info h2 {
   background-size: 100% 2px;
   color: var(--white);
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84
 }
 
 .price {
@@ -714,7 +699,6 @@ body {
   white-space: nowrap;
 }
 
-<<<<<<< HEAD
 .empty-state {
   text-align: center;
   padding: 28px 16px;
@@ -740,18 +724,14 @@ body {
   .item { padding: 10px 14px 10px 10px; gap: 12px; }
   .thumb { width: 56px; height: 56px; }
   .price { font-size: 1rem; padding: 5px 10px; }
-=======
 .item:hover .price {
   scale: 1.18;
   color: var(--white);
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84
 }
 .item:hover .category {
   color: var(--white);
    }
 
-<<<<<<< HEAD
-=======
 /* ---------- Respect people who turn animations off ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -761,4 +741,3 @@ body {
     transition: none !important;
   }
 }
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84
