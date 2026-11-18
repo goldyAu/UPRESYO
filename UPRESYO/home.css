@@ -505,7 +505,6 @@ body {
     0%, 100% { scale: 1; }
     50% { scale: 1.05; }
   }
-<<<<<<< HEAD
 
 /* =========================================================
    KEEP ORIGINAL OBLONG & PULL TEXT INSIDE (Paste at bottom of home.css)
@@ -533,5 +532,3 @@ body {
   font-weight: 600 !important;
   line-height: 1.25 !important;
 }
-=======
->>>>>>> 4e5eb6c836cca991f9f42a071b688ad617272a84

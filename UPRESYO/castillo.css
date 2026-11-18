@@ -724,13 +724,14 @@ body {
   .item { padding: 10px 14px 10px 10px; gap: 12px; }
   .thumb { width: 56px; height: 56px; }
   .price { font-size: 1rem; padding: 5px 10px; }
-.item:hover .price {
-  scale: 1.18;
-  color: var(--white);
+  .item:hover .price {
+    scale: 1.18;
+    color: var(--white);
+  }
+  .item:hover .category {
+    color: var(--white);
+  }
 }
-.item:hover .category {
-  color: var(--white);
-   }
 
 /* ---------- Respect people who turn animations off ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -740,4 +741,4 @@ body {
     animation: none !important;
     transition: none !important;
   }
-}
+} }
