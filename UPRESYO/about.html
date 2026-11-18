@@ -6,57 +6,79 @@
   <title>About us | UPRESYO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- style.css gives this page the same fonts, colors and navbar as the home page -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="home.css">
   <link rel="stylesheet" href="about.css">
 </head>
 <body>
-  <div class="page">
 
-    <!-- Navigation (same as home) -->
-    <header class="navbar">
-      <a href="home.html" class="logo">UPRESYO</a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="#">Canteens</a></li>
-          <li><a href="#">Transport</a></li>
-          <li><a href="about.html" class="btn-about" aria-current="page">About us</a></li>
-        </ul>
+  <!-- Same top bar as the Castillo page -->
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="home.html">UPRESYO</a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="home.html">Home</a>
+        <a href="castillo.html">Canteens</a>
+        <a href="toda.html">Transport</a>
+        <a class="nav-cta" href="about.html" aria-current="page">About us</a>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <main class="about">
+  <main class="page">
+    <section class="about-container">
 
-      <!-- Row 1: three pictures with captions -->
-      <section class="gallery">
-        <figure class="card">
-          <div class="picture"><img src="pam.png" alt="Photo of pam"></div>
-          <!-- To use a real photo: <div class="picture"><img src="photo1.jpg" alt="..."></div> -->
-          <figcaption>Pamela Yanguas – Front-end</figcaption>
-        </figure>
-
-        <figure class="card">
-          <div class="picture">Picture.</div>
-          <figcaption>Caption for each picture.</figcaption>
-        </figure>
-
-        <figure class="card">
-          <div class="picture">Picture.</div>
-          <figcaption>Caption for each picture.</figcaption>
-        </figure>
-      </section>
-
-      <!-- Row 2: one picture and the description -->
-      <section class="intro">
-        <div class="picture">Picture.</div>
-        <div class="description">
-          <p>Description about UPRESYO.</p>
+      <!-- What UPRESYO is -->
+      <div class="about-intro">
+        <div class="intro-text">
+          <span class="about-tag">About UPRESYO</span>
+          <h1 class="about-title">Know the price before you go.</h1>
+          <p>
+            UPRESYO lists canteen meals and ride fares around UP Mindanao in one place.
+            Check what Castillo, Kalimudan and Ate Lings are serving, see how much a
+            jeepney or tricycle ride costs, and plan your budget before you leave the room.
+          </p>
+          <p>
+            We built it for UP Mindanao students who want to know if they have enough
+            for lunch and the ride home.
+          </p>
         </div>
-      </section>
+        <div class="intro-art">
+          <img src="finallogo.png" alt="UPRESYO price tag logo">
+        </div>
+      </div>
 
-    </main>
-  </div>
+      <!-- Team -->
+      <h2 class="team-heading">Meet the team</h2>
+
+      <div class="team">
+        <figure class="member">
+          <div class="picture"><img src="pam.png" alt="Photo of Pamela Yanguas"></div>
+          <figcaption>
+            <span class="member-name">Pamela Yanguas</span>
+            <span class="member-role">Front-end</span>
+          </figcaption>
+        </figure>
+
+        <figure class="member">
+          <div class="picture"><img src="khirsten.png" alt="Photo of Khirsten"></div>
+          <figcaption>
+            <span class="member-name">Khirsten</span>
+            <span class="member-role">Role</span>
+          </figcaption>
+        </figure>
+
+        <figure class="member">
+          <div class="picture"><img src="pau.png" alt="Photo of Pau"></div>
+          <figcaption>
+            <span class="member-name">Pau</span>
+            <span class="member-role">Role</span>
+          </figcaption>
+        </figure>
+      </div>
+
+    </section>
+  </main>
+
 </body>
 </html>
