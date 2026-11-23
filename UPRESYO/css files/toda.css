@@ -1,8 +1,8 @@
 
 :root {
-    --font-heading: "Fredoka", sans-serif;
-    --font-body: "Plus Jakarta Sans", sans-serif;
-    --font-pixel: "Fredoka", sans-serif;
+    --font-heading: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
+    --font-body: "DM Sans", "Segoe UI", Arial, sans-serif;
+    --font-pixel: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
     --panel: #fbf9f2;       /* machine body, same cream as the home center circle */
     --field: #efe9d8;       /* inputs */
     --edge: #1f2a24;        /* thick pixel outlines (same as --ink) */
@@ -20,8 +20,10 @@ body.ride-page {
 body.ride-page {
     min-height: 100vh;
     min-height: 100dvh;
-    background: url("../images/back3.jpg") center bottom / cover fixed no-repeat, #d6ecef;
-    image-rendering: auto;
+    background:
+        linear-gradient(rgba(235, 242, 238, 0.72), rgba(235, 242, 238, 0.78)),
+        url("../images/back3.jpg") center / cover fixed no-repeat,
+        #cfdcd5;
 }
 
 /* Back button: same white pill as the labels on the home page */
@@ -125,7 +127,7 @@ body.ride-page {
     height: 68px;
     margin: -8px 0;     /* the sprites have empty space around them */
     object-fit: contain;
-    image-rendering: pixelated;
+    image-rendering: auto;
 }
 
 .tab[aria-selected="true"] {
