@@ -20,7 +20,7 @@ body.ride-page {
 body.ride-page {
     min-height: 100vh;
     min-height: 100dvh;
-    background: url("../images/todabg.jpg") center bottom / cover fixed no-repeat, #d6ecef;
+    background: url("../images/back3.jpg") center bottom / cover fixed no-repeat, #d6ecef;
     image-rendering: auto;
 }
 
