@@ -1,112 +1,109 @@
-// Search, filter (All / Meal / Drinks / Snacks) and sort for the eatery page.
-// The menu items live in eatery.html. Each <li class="item"> has:
-//   data-category="meal | drink | snack"   (matches the filter chips)
-//   data-price="15"                         (a number, used for sorting)
+// Search, category filtering, sorting, and reset controls for all canteen pages.
 (() => {
   const menu = document.querySelector('.menu');
+  if (!menu) return;
+
   const items = Array.from(menu.querySelectorAll('.item'));
   const chips = Array.from(document.querySelectorAll('.chip'));
-  const searchInput = document.querySelector('.search input');
-  const results = document.getElementById('resultCount') || document.getElementById('results');
-  const emptyMsg = document.getElementById('emptyState') || document.getElementById('emptyMsg');
+  const searchInput = document.getElementById('searchInput');
+  const clearSearch = document.getElementById('clearSearch');
+  const resetFilters = document.getElementById('resetFilters');
+  const results = document.getElementById('resultCount');
+  const emptyMsg = document.getElementById('emptyState');
   const sortBtn = document.getElementById('sortBtn');
   const sortMenu = document.getElementById('sortMenu');
-  const sortOptions = Array.from(sortMenu.querySelectorAll('button'));
+  const sortLabel = document.getElementById('sortLabel');
+  const sortOptions = sortMenu ? Array.from(sortMenu.querySelectorAll('[data-sort]')) : [];
 
-  const FILTER_LABELS = { all: 'All', meal: 'Meal', drinks: 'Drinks', drink: 'Drinks', snacks: 'Snacks', snack: 'Snacks' };
   const SORT_LABELS = {
-    'default': 'Default order',
+    default: 'Default order',
     'name-asc': 'Name: A to Z',
     'name-desc': 'Name: Z to A',
     'price-asc': 'Price: low to high',
-    'price-desc': 'Price: high to low',
+    'price-desc': 'Price: high to low'
   };
 
   const state = { filter: 'all', query: '', sort: 'default' };
   const collator = new Intl.Collator(undefined, { sensitivity: 'base', numeric: true });
 
-  // Remember the original order so "Default order" can restore it
-  items.forEach((item, i) => { item.dataset.index = i; });
+  // Preserve the original menu order for the Default order option.
+  items.forEach((item, index) => { item.dataset.index = String(index); });
 
-  const getName = (item) => item.querySelector('h2').textContent.trim();
+  const getName = (item) => {
+    const heading = item.querySelector('.item-name, h2');
+    return heading ? heading.textContent.trim() : '';
+  };
+
   const getPrice = (item) => {
-    const p = parseFloat(item.dataset.price);
-    return Number.isNaN(p) ? null : p;
+    const price = Number.parseFloat(item.dataset.price);
+    return Number.isFinite(price) ? price : null;
   };
 
   function compare(a, b) {
-    switch (state.sort) {
-      case 'name-asc':
-        return collator.compare(getName(a), getName(b));
-      case 'name-desc':
-        return collator.compare(getName(b), getName(a));
-      case 'price-asc':
-      case 'price-desc': {
-        const pa = getPrice(a);
-        const pb = getPrice(b);
-        if (pa === null && pb === null) return collator.compare(getName(a), getName(b));
-        if (pa === null) return 1;
-        if (pb === null) return -1;
-        const diff = state.sort === 'price-asc' ? pa - pb : pb - pa;
-        return diff || collator.compare(getName(a), getName(b));
-      }
-      default:
-        return a.dataset.index - b.dataset.index;
+    if (state.sort === 'name-asc') return collator.compare(getName(a), getName(b));
+    if (state.sort === 'name-desc') return collator.compare(getName(b), getName(a));
+
+    if (state.sort === 'price-asc' || state.sort === 'price-desc') {
+      const priceA = getPrice(a);
+      const priceB = getPrice(b);
+      if (priceA === null && priceB === null) return collator.compare(getName(a), getName(b));
+      if (priceA === null) return 1;
+      if (priceB === null) return -1;
+      const difference = state.sort === 'price-asc' ? priceA - priceB : priceB - priceA;
+      return difference || collator.compare(getName(a), getName(b));
     }
+
+    return Number(a.dataset.index) - Number(b.dataset.index);
   }
 
   function update() {
-    // 1. Sort (re-orders the list in the page)
-    const sorted = [...items].sort(compare);
-    const inOrder = sorted.every((item, i) => menu.children[i] === item);
-    if (!inOrder) sorted.forEach((item) => menu.appendChild(item));
+    const sortedItems = [...items].sort(compare);
+    sortedItems.forEach((item) => menu.appendChild(item));
 
-    // 2. Filter + search (hide anything that doesn't match)
-    const q = state.query.trim().toLowerCase();
-    const activeFilter = state.filter.trim().toLowerCase();
+    const query = state.query.trim().toLowerCase();
+    const activeFilter = state.filter.toLowerCase();
     let shown = 0;
 
     items.forEach((item) => {
-      const itemCat = (item.dataset.category || '').trim().toLowerCase();
-      const catEl = item.querySelector('.item-cat') || item.querySelector('.category');
-      const catText = catEl ? catEl.textContent.trim().toLowerCase() : '';
+      const categoryElement = item.querySelector('.item-cat, .category');
+      const categoryText = categoryElement ? categoryElement.textContent.trim().toLowerCase() : '';
+      const categoryValue = (item.dataset.category || '').trim().toLowerCase();
+      const matchesCategory = activeFilter === 'all' ||
+        categoryValue === activeFilter || categoryText === activeFilter;
+      const searchableText = (getName(item) + ' ' + categoryText).toLowerCase();
+      const matchesSearch = !query || searchableText.includes(query);
+      const visible = matchesCategory && matchesSearch;
 
-      const inCategory = activeFilter === 'all' || itemCat === activeFilter || catText === activeFilter;
-      const searchable = (getName(item) + ' ' + catText).toLowerCase();
-      const matches = inCategory && (!q || searchable.includes(q));
-
-      item.hidden = !matches;
-      item.style.display = matches ? '' : 'none';
-      if (matches) shown++;
+      item.hidden = !visible;
+      if (visible) shown += 1;
     });
 
-    // 3. Tell the user what they are looking at
-    let text = 'Showing ' + shown + (shown === 1 ? ' item' : ' items');
-    if (activeFilter !== 'all' && FILTER_LABELS[activeFilter]) {
-      text += ' in ' + FILTER_LABELS[activeFilter];
+    if (results) {
+      let message = `Showing ${shown} ${shown === 1 ? 'item' : 'items'}`;
+      if (activeFilter !== 'all') message += ` · ${state.filter}`;
+      if (query) message += ` · Search: “${state.query.trim()}”`;
+      if (state.sort !== 'default') message += ` · ${SORT_LABELS[state.sort]}`;
+      results.textContent = message;
     }
-    if (q) text += ' matching \u201C' + state.query.trim() + '\u201D';
-    if (state.sort !== 'default') text += ' \u00B7 ' + SORT_LABELS[state.sort];
 
-    if (results) results.textContent = text;
     if (emptyMsg) emptyMsg.hidden = shown !== 0;
+    if (clearSearch) clearSearch.hidden = !state.query;
+    if (sortLabel) sortLabel.textContent = state.sort === 'default' ? 'Sort by' : SORT_LABELS[state.sort];
   }
 
-  // Filter chips (All, Meal, Drinks, Snacks)
   chips.forEach((chip) => {
+    chip.setAttribute('aria-pressed', String(chip.classList.contains('active')));
     chip.addEventListener('click', () => {
-      chips.forEach((c) => {
-        c.classList.remove('active');
-        c.setAttribute('aria-pressed', 'false');
+      state.filter = chip.dataset.filter || 'all';
+      chips.forEach((other) => {
+        const active = other === chip;
+        other.classList.toggle('active', active);
+        other.setAttribute('aria-pressed', String(active));
       });
-      chip.classList.add('active');
-      chip.setAttribute('aria-pressed', 'true');
-      state.filter = chip.dataset.filter || chip.textContent.trim();
       update();
     });
   });
 
-  // Search
   if (searchInput) {
     searchInput.addEventListener('input', () => {
       state.query = searchInput.value;
@@ -114,34 +111,67 @@
     });
   }
 
-  // Sort menu
-  function setMenu(open) {
+  if (clearSearch) {
+    clearSearch.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+      }
+      state.query = '';
+      update();
+    });
+  }
+
+  if (resetFilters) {
+    resetFilters.addEventListener('click', () => {
+      state.filter = 'all';
+      state.query = '';
+      state.sort = 'default';
+
+      if (searchInput) searchInput.value = '';
+
+      chips.forEach((chip) => {
+        const active = (chip.dataset.filter || 'all').toLowerCase() === 'all';
+        chip.classList.toggle('active', active);
+        chip.setAttribute('aria-pressed', String(active));
+      });
+
+      sortOptions.forEach((option) => {
+        const active = option.dataset.sort === 'default';
+        option.classList.toggle('active', active);
+      });
+
+      if (sortMenu) sortMenu.hidden = true;
+      if (sortBtn) sortBtn.setAttribute('aria-expanded', 'false');
+      update();
+    });
+  }
+
+  function setSortMenu(open) {
+    if (!sortMenu || !sortBtn) return;
     sortMenu.hidden = !open;
     sortBtn.setAttribute('aria-expanded', String(open));
   }
 
   if (sortBtn && sortMenu) {
-    sortBtn.addEventListener('click', () => setMenu(sortMenu.hidden));
+    sortBtn.addEventListener('click', () => setSortMenu(sortMenu.hidden));
 
     sortOptions.forEach((option) => {
       option.addEventListener('click', () => {
-        state.sort = option.dataset.sort;
-        sortOptions.forEach((o) => {
-          o.classList.toggle('active', o === option);
-          o.classList.toggle('is-active', o === option);
-        });
-        setMenu(false);
+        state.sort = option.dataset.sort || 'default';
+        sortOptions.forEach((other) => other.classList.toggle('active', other === option));
+        setSortMenu(false);
         update();
       });
     });
 
-    document.addEventListener('click', (e) => {
-      if (!sortMenu.hidden && !e.target.closest('.sort-wrap')) setMenu(false);
+    document.addEventListener('click', (event) => {
+      if (!sortMenu.hidden && !event.target.closest('.sort-wrap')) setSortMenu(false);
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !sortMenu.hidden) {
-        setMenu(false);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !sortMenu.hidden) {
+        setSortMenu(false);
         sortBtn.focus();
       }
     });

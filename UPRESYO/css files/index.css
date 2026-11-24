@@ -532,3 +532,44 @@ body {
   font-weight: 600 !important;
   line-height: 1.25 !important;
 }
+/* Homepage responsive improvements */
+
+@media (max-width: 768px) {
+    .stage {
+        width: 100%;
+        min-height: 650px;
+        overflow: hidden;
+    }
+
+    .hero {
+        width: 90%;
+    }
+
+    .hero-logo {
+        max-width: 220px;
+    }
+
+    .blob-img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    .blob span {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stage {
+        min-height: 550px;
+    }
+
+    .hero-logo {
+        width: 160px !important;
+    }
+
+    .blob-img {
+        width: 65px;
+        height: 65px;
+    }
+}
