@@ -19,15 +19,30 @@
 
     const FARES = {
         ikot: {
-            'ADMIN|CSM': 10,
-            'ADMIN|DHK': 10,
-            'CSM|EBL': 10,
-            'DHK|EBL': 10,
-            'CSM|DHK': 10,
-            'CSM|LIB': 10,
-            'BASAK|CSM': 10,
-            'CSM|HOLY SPIRIT/HIGHWAY': 15,
-        },
+    // ADMIN routes
+    'ADMIN|CSM': 10,
+    'ADMIN|DHK': 10,
+    'ADMIN|LIB': 10,
+
+    // EBL routes
+    'CSM|EBL': 10,
+    'DHK|EBL': 10,
+    'EBL|LIB': 10,
+
+    // ADMIN and EBL to Basak
+    'ADMIN|BASAK': 15,
+    'BASAK|EBL': 15,
+
+    // ADMIN and EBL to Holy Spirit
+    'ADMIN|HOLY SPIRIT/HIGHWAY': 15,
+    'EBL|HOLY SPIRIT/HIGHWAY': 15,
+
+    // Other campus routes
+    'CSM|DHK': 10,
+    'CSM|LIB': 10,
+    'BASAK|CSM': 10,
+    'CSM|HOLY SPIRIT/HIGHWAY': 10
+},
 
         tricycle: {
             // ADMIN routes
